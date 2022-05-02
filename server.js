@@ -3,6 +3,16 @@ const fs = require("fs");
 const express = require("express"); // Import express framework
 const app = express();
 
+// Middleware
+app.use((req, res, next) => {
+  console.log("Another middleware");
+  next(); // Chạy tiếp sang function sau
+});
+
+app.use((req, res, next) => {
+  console.log("And another one");
+});
+
 const server = http.createServer((req, res) => {
   const url = req.url;
   const method = req.method;
