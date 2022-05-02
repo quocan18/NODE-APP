@@ -2,7 +2,6 @@ const http = require("http"); // Import http module
 const fs = require("fs");
 const express = require("express"); // Import express framework
 const app = express();
-
 const server = http.createServer((req, res) => {
   const url = req.url;
   const method = req.method;
