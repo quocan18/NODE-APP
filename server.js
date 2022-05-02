@@ -11,6 +11,7 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
   console.log("And another one");
+  res.send("<h1>Hello from Express</h1>"); // Chạy xong funtion này sẽ trả về một đoạn code
 });
 
 const server = http.createServer((req, res) => {
