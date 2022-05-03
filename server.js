@@ -2,21 +2,18 @@ const http = require("http"); // Import http module
 const fs = require("fs");
 const express = require("express"); // Import express framework
 const app = express();
+const bodyParser = require("body-parser");
 
 // Middleware
-app.use("/", (req, res, next) => {
-  console.log("This always run");
-  next(); // Chạy tiếp sang function sau
-});
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/add-product", (req, res, next) => {
-  console.log(" Another Middleware");
-  res.send("<h1>Add Product Page</h1>");
+  res.send("<h1>Hello</h1>");
 });
 
-app.use("/", (req, res, next) => {
-  console.log("And another one");
-  res.send("<h1>Hello From Express</h1>");
+app.post("/product", (req, res, next) => {
+  console.log(req.body);
+  res.redirect("/");
 });
 
 const server = http.createServer((req, res) => {
