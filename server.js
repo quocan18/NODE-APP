@@ -9,7 +9,7 @@ const shopRoutes = require("./routes/shop");
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(adminRoutes);
+app.use("/admin", adminRoutes); // Phân luồn đường dẫn cho admin
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
