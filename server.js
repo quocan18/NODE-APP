@@ -4,14 +4,19 @@ const express = require("express"); // Import express framework
 const app = express();
 
 // Middleware
-app.use((req, res, next) => {
-  console.log("Another middleware");
+app.use("/", (req, res, next) => {
+  console.log("This always run");
   next(); // Chạy tiếp sang function sau
 });
 
-app.use((req, res, next) => {
+app.use("/add-product", (req, res, next) => {
+  console.log(" Another Middleware");
+  res.send("<h1>Add Product Page</h1>");
+});
+
+app.use("/", (req, res, next) => {
   console.log("And another one");
-  res.send("<h1>Hello from Express</h1>"); // Chạy xong funtion này sẽ trả về một đoạn code
+  res.send("<h1>Hello From Express</h1>");
 });
 
 const server = http.createServer((req, res) => {
