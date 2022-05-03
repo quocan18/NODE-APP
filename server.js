@@ -10,6 +10,9 @@ const shopRoutes = require("./routes/shop");
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Cung cấp static file cho tất cả request
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use("/admin", adminRoutes); // Phân luồn đường dẫn cho admin
 app.use(shopRoutes);
 
