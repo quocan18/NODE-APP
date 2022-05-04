@@ -19,6 +19,6 @@ app.use("/admin", adminRoutes); // Phân luồn đường dẫn cho admin
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-  res.status(404).render("404"); // Import 404.pug
+  res.status(404).render("404", { pageTitle: "Page Not Found" }); // Import 404.pug
 });
 app.listen(3000); // Server sẽ chạy trên cổng 3000
