@@ -5,6 +5,8 @@ const app = express();
 const bodyParser = require("body-parser");
 const path = require("path");
 
+app.set("view engine", "pug"); // Import pug engine
+app.set("views", "views"); // Sẽ có ở trong thư mục views
 const adminRoutes = require("./routes/admin"); // Import router admin
 const shopRoutes = require("./routes/shop");
 // Middleware
