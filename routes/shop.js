@@ -6,7 +6,8 @@ const router = express.Router();
 const rootDir = require("../helper/path");
 
 router.get("/", (req, res, next) => {
-  res.render("shop"); // Render shop.pug
+  const products = adminData.products;
+  res.render("shop", { prods: products, docTitle: "Shop" }); // Render shop.pug
 });
 
 module.exports = router;
