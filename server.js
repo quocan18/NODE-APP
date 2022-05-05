@@ -5,6 +5,14 @@ const app = express();
 const bodyParser = require("body-parser");
 const path = require("path");
 
+app.engine(
+  "hbs",
+  expressHbs({
+    layoutsDir: "views/layouts/",
+    defaultLayout: "main_layout",
+    extname: "hbs",
+  })
+);
 app.set("view engine", "pug"); // Import pug engine
 app.set("views", "views"); // Sẽ có ở trong thư mục views
 const adminRoutes = require("./routes/admin"); // Import router admin
