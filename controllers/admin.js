@@ -42,7 +42,7 @@ exports.postEditProduct = (req, res, next) => {
   const updatedTitle = req.body.title;
   const updatedPrice = req.body.price;
   const updatedImgURL = req.body.imageUrl;
-  const updatedDesc = req.bodu.description;
+  const updatedDesc = req.body.description;
   const updatedProduct = new Product(
     proId,
     updatedTitle,
@@ -62,4 +62,8 @@ exports.getProducts = (req, res, next) => {
       path: "/admin/products",
     });
   });
+};
+
+exports.postDeleteProduct = (req, res, next) => {
+  const proId = req.body.productId;
 };
