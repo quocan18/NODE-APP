@@ -15,6 +15,8 @@ const sequelize = require("./util/database");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const User = require("./models/user");
+const Cart = require("./models/cart");
+const CartItem = require("./models/cart-product");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -32,10 +34,15 @@ app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 
 app.use(errorController.get404);
+User.hasMany(Product);
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product, { through: CartItem });
+Product.belongsToMany(Cart, { through: CartItem });
 
 sequelize
-  // .sync({force: true})
-  .sync()
+  .sync({ force: true })
+  //.sync()
   .then((result) => {
     return User.findById(1);
     //console.log(result);
