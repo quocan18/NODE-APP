@@ -1,5 +1,6 @@
 const Product = require("../models/product");
 const Cart = require("../models/cart");
+const e = require("express");
 
 exports.getProducts = (req, res, next) => {
   Product.findAll()
@@ -87,11 +88,31 @@ exports.getCart = (req, res, next) => {
 };
 
 exports.postCart = (req, res, next) => {
-  const proId = req.body.productId;
-  Product.findById(proId, (product) => {
-    Cart.addProduct(proId, product.price);
-  });
-  res.redirect("/cart");
+  req.user
+    .getCart()
+    .then((cart) => {
+      return cart.getProducts({ where: { id: proId } });
+    })
+    .then((cart) => {
+      let product;
+      if (cart.products.length > 0) {
+        product = product[0];
+      }
+      let newQuantity = 1;
+      if (product) {
+      }
+      return Product.findById(proId)
+        .then((product) => {
+          return fetchedCart.addProduct(product, {
+            through: { quantity: newQuantity },
+          });
+        })
+        .then(() => {
+          res.redirect("/cart");
+        })
+        .catch((err) => console.log(err));
+    })
+    .catch((err) => console.error(err));
 };
 
 exports.postCartDeleteProduct = (req, res, next) => {
