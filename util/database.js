@@ -1,8 +1,8 @@
-var Sequelize = require("sequelize");
+var MongoClient = require("mongodb").MongoClient;
+var url = "mongodb://localhost:27017/product";
 
-const sequelize = new Sequelize("node-complete", "root", "nodecomplete", {
-  dialect: "mysql",
-  host: "localhost",
+MongoClient.connect(url, function (err, db) {
+  if (err) throw err;
+  console.log("Database created successfully");
+  db.close();
 });
-
-module.exports = sequelize;
