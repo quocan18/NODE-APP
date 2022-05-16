@@ -18,7 +18,13 @@ class User {
     return db
       .collection("users")
       .findOne({ _id: new ObjectId(userId) })
-      .next();
+      .then((user) => {
+        console.log(user);
+        return user;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
 
