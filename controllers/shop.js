@@ -89,40 +89,47 @@ exports.getCart = (req, res, next) => {
 
 exports.postCart = (req, res, next) => {
   let proId = req.body.productId;
-  let fetchedCart;
-  let newQuantity = 1;
-  req.user
-    .getCart()
-    .then((cart) => {
-      return cart.getProducts({ where: { id: proId } });
-    })
+  Product.findById(proId)
     .then((product) => {
-      let product;
-      if (product.length > 0) {
-        product = product[0];
-      }
+      return res.user.addToCart(product);
+    })
+    .then((result) => {
+      console.log(result);
+    });
+  // let fetchedCart;
+  // let newQuantity = 1;
+  // req.user
+  //   .getCart()
+  //   .then((cart) => {
+  //     return cart.getProducts({ where: { id: proId } });
+  //   })
+  //   .then((product) => {
+  //     let product;
+  //     if (product.length > 0) {
+  //       product = product[0];
+  //     }
 
-      if (product) {
-        const oldQuantity = product.cartItems.quantity;
-        newQuantity = oldQuantity + 1;
-        return product;
-      }
-      return Product.findById(proId);
-    })
-    .then((product) => {
-      return fetchedCart.addProduct(product, {
-        through: { quantity: newQuantity },
-      });
-    })
-    .then((data) => {
-      return fetchedCart.addProduct(Product, {
-        through: { quantity: newQuantity },
-      });
-    })
-    .then(() => {
-      res.redirect("/cart");
-    })
-    .catch((err) => console.log(err));
+  //     if (product) {
+  //       const oldQuantity = product.cartItems.quantity;
+  //       newQuantity = oldQuantity + 1;
+  //       return product;
+  //     }
+  //     return Product.findById(proId);
+  //   })
+  //   .then((product) => {
+  //     return fetchedCart.addProduct(product, {
+  //       through: { quantity: newQuantity },
+  //     });
+  //   })
+  //   .then((data) => {
+  //     return fetchedCart.addProduct(Product, {
+  //       through: { quantity: newQuantity },
+  //     });
+  //   })
+  //   .then(() => {
+  //     res.redirect("/cart");
+  //   })
+  //   .catch((err) => console.log(err));
 };
 
 exports.postCartDeleteProduct = (req, res, next) => {
