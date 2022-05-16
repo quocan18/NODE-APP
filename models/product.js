@@ -1,6 +1,6 @@
 const mongodb = require("mongodb");
-const e = require("express");
-const MongoConnect = require("../util/database");
+
+const getDb = require("../util/database").getDb;
 
 class Product {
   constructor(title, price, description, imageUrl, id) {
@@ -8,7 +8,7 @@ class Product {
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
-    this._id = id;
+    this._id = id ? new mongodb.ObjectId(id) : null;
   }
 
   save() {
